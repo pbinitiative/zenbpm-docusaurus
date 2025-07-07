@@ -8,5 +8,5 @@ docs/build
 build
 node_modules
 .docusaurus
-openapi
-proto
+#openapi
+#proto

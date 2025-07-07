@@ -1,10 +1,8 @@
 {
   "name": "docs",
   "scripts": {
-    "copy-openapi": "mkdir -p openapi/redocusaurus && cp ../zenbpm/openapi/api.yaml openapi/redocusaurus/",
-    "copy-proto": "mkdir -p proto && cp ../zenbpm/internal/grpc/proto/zenbpm.proto proto/",
-    "start": "npm run copy-openapi && npm run copy-proto && docusaurus start --host 0.0.0.0",
-    "build": "npm run copy-openapi && npm run copy-proto && docusaurus build"
+    "start": "docusaurus start --host 0.0.0.0",
+    "build": "docusaurus build"
   },
   "dependencies": {
     "@docusaurus/core": "3.8.0",
