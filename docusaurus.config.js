@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Documentation',
-  staticDirectories: ['openapi', 'proto'],
+  staticDirectories: ['openapi', 'proto', 'static'],
   url: process.env.SITE_URL || 'http://localhost:3000',
   baseUrl:  process.env.BASE_URL || '/',
 
