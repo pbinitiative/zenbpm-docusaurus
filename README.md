@@ -23,10 +23,9 @@ then edit `docs/openapi.mdx` using new `id` and `route`.
 ## Run local
 Using node.js, you can see live changes
 ```
-make start-docusaurus
+npm install
+npm start
 ```
-## Public preview
-A public preview will be automatically created by pushing changes into the docs folder.
-
 ## Publishing
 Changes of documentation in `main` branch will be automatically deployed.
+Documents from `docs` folder in ZenBPM repository `main` branch will be automatically pushed into this repository.
