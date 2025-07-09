@@ -3,10 +3,9 @@
 .nvim.json
 *.iml
 .DS_Store
-docs/build
 
 build
 node_modules
 .docusaurus
-#openapi
-#proto
+
+.env

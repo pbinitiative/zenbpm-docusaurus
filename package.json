@@ -2,12 +2,17 @@
   "name": "docs",
   "scripts": {
     "start": "docusaurus start --host 0.0.0.0",
-    "build": "docusaurus build"
+    "build": "docusaurus build",
+    "preview": "node preview.js"
   },
   "dependencies": {
     "@docusaurus/core": "3.8.0",
     "@docusaurus/preset-classic": "3.8.0",
     "@docusaurus/theme-mermaid": "3.8.0",
+    "chokidar": "^4.0.3",
+    "cross-spawn": "^7.0.6",
+    "dotenv": "^17.1.0",
+    "fs-extra": "^11.3.0",
     "redocusaurus": "^2.5.0"
   }
 }
