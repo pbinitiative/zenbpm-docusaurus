@@ -677,6 +677,7 @@ components:
         - active
         - completed
         - terminated
+        - failed
     ActivityPage:
       type: object
       allOf:
