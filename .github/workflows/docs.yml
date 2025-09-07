@@ -27,8 +27,8 @@ jobs:
       - name: Build documentation
         working-directory: .
         env:
-          SITE_URL: https://zenbpm.pbinitiative.org
           BASE_URL: /
+          SITE_URL: https://zenbpm.pbinitiative.org          
         run: npm run build
 
       - name: Deploy to GitHub Pages
