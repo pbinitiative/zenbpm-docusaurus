@@ -433,6 +433,11 @@ paths:
                     after the process instance ends. If omitted the default will
                     be picked up from engine configuration. (1d8h, 1M5d8h)
                   example: 30d
+                businessKey:
+                  type: string
+                  description: >-
+                    Business key of the process instance used mainly for
+                    correlating process instance to the business entity.
             example:
               processDefinitionKey: 4503599627370498
               variables:
@@ -493,6 +498,13 @@ paths:
             format: int64
           description: Key of the parent process instance
           example: 1603294627315478
+        - name: businessKey
+          in: query
+          schema:
+            type: string
+          description: >-
+            Business key of the process instance used mainly for correlating
+            process instance to the business entity.
         - name: page
           in: query
           schema:
@@ -1467,6 +1479,8 @@ components:
         processDefinitionKey:
           type: integer
           format: int64
+        businessKey:
+          type: string
         createdAt:
           type: string
           format: date-time
