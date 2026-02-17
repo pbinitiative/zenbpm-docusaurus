@@ -828,8 +828,8 @@ paths:
                   applicationDate: '2025-08-22'
                   taskAssignee: john.doe
                   currentStatus: Application review
-        '400':
-          description: Bad request
+        '404':
+          description: Not Found
           content:
             application/json:
               schema:
