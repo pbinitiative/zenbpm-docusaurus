@@ -38,6 +38,22 @@ module.exports = {
               label: 'Next 🚧',
             },
           },
+          async sidebarItemsGenerator({ defaultSidebarItemsGenerator, ...args }) {
+            const sidebarItems = await defaultSidebarItemsGenerator(args);
+            const excludedDir = 'static/'
+            function filterItems(items) {
+              return items
+                .filter((item) => !(item.type === 'doc' && item.id.startsWith(excludedDir)))
+                .map((item) => {
+                  if (item.type === 'category' && item.items) {
+                    return { ...item, items: filterItems(item.items) };
+                  }
+                  return item;
+                })
+                .filter((item) => !(item.type === 'category' && item.items.length === 0));
+            }
+            return filterItems(sidebarItems);
+          },
         },
         blog: false,
         theme: {
