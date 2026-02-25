@@ -13,7 +13,7 @@ All changes of documentation must be made in `https://github.com/pbinitiative/ze
 ## Versions
 To add new version of documentation run command
 ```
-npx docusaurus docs:version 1.2.3
+npx docusaurus docs:version v1.2.3
 ```
 The openapi version must be set manually.<br/>
 Create new specification file in `openapi/redocusaurus` folder.<br>

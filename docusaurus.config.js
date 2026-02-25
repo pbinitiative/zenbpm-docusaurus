@@ -9,8 +9,14 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          routeBasePath: '/', // Makes docs the homepage
+          routeBasePath: '/',
           sidebarPath: './sidebars.js',
+          lastVersion: 'v1.0.0',
+          versions: {
+            current: {
+              label: 'Next 🚧',
+            },
+          },
         },
         blog: false,
         theme: {
@@ -45,6 +51,12 @@ module.exports = {
   themeConfig: {
     navbar: {
       title: 'ZenBPM Documentation',
+      items: [
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+        },
+      ],
     },
     docs: {
       sidebar: {
