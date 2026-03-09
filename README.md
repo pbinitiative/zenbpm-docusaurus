@@ -11,17 +11,16 @@ All changes of documentation must be made in `https://github.com/pbinitiative/ze
 - Use **explanations** for background and “why” context—no procedures or specs
 
 ## Versions
-To add new version of documentation run command
+To add a new version of documentation, run:
 ```
-npx docusaurus docs:version v1.2.3
+npm run version -- v1.2.3
 ```
-The openapi version must be set manually.<br/>
-Create new specification file in `openapi/redocusaurus` folder.<br>
-In `docusaurus.config.js` file add new spec config in `redocusaurus` section,
-then edit `docs/openapi.mdx` using new `id` and `route`.
+This automatically:
+- Copies the current OpenAPI spec and proto file with version suffix
+- Creates the Docusaurus docs version
+- Updates versioned docs to reference version-specific specs
 
- > ⚠ The `id` must be same as `filename` without extension,
- > due to automatic download link generation.
+The `docusaurus.config.js` dynamically generates redocusaurus spec entries from `versions.json`.
 
 ## Run local
 Using node.js, you can see live changes from `zenbpm/docs`.<br>

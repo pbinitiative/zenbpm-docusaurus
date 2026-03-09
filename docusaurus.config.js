@@ -1,3 +1,24 @@
+const fs = require('fs');
+
+const versions = fs.existsSync('./versions.json')
+  ? JSON.parse(fs.readFileSync('./versions.json', 'utf8'))
+  : [];
+
+const versionId = (v) => v.replace(/\./g, '_');
+
+const redocSpecs = [
+  {
+    spec: 'openapi/redocusaurus/api.yaml',
+    id: 'api',
+    route: '/openapi-api',
+  },
+  ...versions.map((v) => ({
+    spec: `openapi/redocusaurus/api-${v}.yaml`,
+    id: `api-${versionId(v)}`,
+    route: `/openapi-api-${versionId(v)}`,
+  })),
+];
+
 module.exports = {
   title: 'Documentation',
   staticDirectories: ['openapi', 'proto', 'static'],
@@ -11,7 +32,7 @@ module.exports = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.js',
-          lastVersion: 'v1.0.0',
+          lastVersion: versions[0] || 'current',
           versions: {
             current: {
               label: 'Next 🚧',
@@ -20,7 +41,7 @@ module.exports = {
         },
         blog: false,
         theme: {
-          // customCss: "", 
+          // customCss: "",
         },
         sitemap: {
           changefreq: 'weekly',
@@ -31,13 +52,7 @@ module.exports = {
     [
       'redocusaurus',
       {
-        specs: [
-          {
-            spec: 'openapi/redocusaurus/api.yaml',
-            id: 'api',
-            route: '/openapi-api',
-          },
-        ],
+        specs: redocSpecs,
         theme: {
           primaryColor: '#1890ff',
         },

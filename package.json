@@ -3,7 +3,8 @@
   "scripts": {
     "start": "docusaurus start --host 0.0.0.0",
     "build": "docusaurus build",
-    "preview": "node preview.js"
+    "preview": "node preview.js",
+    "version": "node scripts/create-version.js"
   },
   "dependencies": {
     "@docusaurus/core": "3.8.0",
