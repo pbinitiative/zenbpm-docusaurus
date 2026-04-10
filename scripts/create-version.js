@@ -33,7 +33,7 @@ execSync(`npx docusaurus docs:version ${version}`, { cwd: root, stdio: 'inherit'
 const versionedDir = path.join(root, `versioned_docs/version-${version}`);
 
 // Update openapi.mdx
-const openapiMdx = path.join(versionedDir, 'openapi.mdx');
+const openapiMdx = path.join(versionedDir, 'static', 'openapi.mdx');
 if (fs.existsSync(openapiMdx)) {
   let content = fs.readFileSync(openapiMdx, 'utf8');
   content = content.replace('[full width](/openapi-api)', `[full width](/openapi-api-${versionId})`);
