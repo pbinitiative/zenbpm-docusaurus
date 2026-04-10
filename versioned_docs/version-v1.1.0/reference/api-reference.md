@@ -16,12 +16,12 @@ ZenBPM offers two primary API interfaces:
 
 The REST API follows standard RESTful principles
 
-- See the [OpenAPI specification](../../openapi/redocusaurus/api.yaml)
+- See the [OpenAPI specification](pathname:///redocusaurus/api-v1.1.0.yaml)
 - See the [OpenApi documentation](/openapi-api-v1_1_0)
 
 ## gRPC API
 
 The gRPC API provides similar functionality to the REST API but with the performance benefits of gRPC. It's defined using Protocol Buffers.
 
-- See the [Protocol Buffer definitions ](../../proto/zenbpm.proto)
+- See the [Protocol Buffer definitions](pathname:///zenbpm-v1.1.0.proto)
  
