@@ -43,6 +43,25 @@ paths:
                 </decision>
               </definitions>
       responses:
+        '200':
+          description: >
+            DMN resource definition with the same dmnResourceDefinitionId and
+            version already exists and the content is identical — deployment
+            ignored, returns the key of the existing definition. If the content
+            differs for the same ID and version, a new version is deployed and
+            201 is returned instead.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - dmnResourceDefinitionKey
+                properties:
+                  dmnResourceDefinitionKey:
+                    type: integer
+                    format: int64
+              example:
+                dmnResourceDefinitionKey: 4503599627370495
         '201':
           description: Dmn resource definition deployed
           content:
@@ -59,12 +78,6 @@ paths:
                 dmnResourceDefinitionKey: 4503599627370495
         '400':
           description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '409':
-          description: Conflict - dmn resource definition already exists
           content:
             application/json:
               schema:
@@ -578,6 +591,25 @@ paths:
               resource:
                 contentType: application/octet-stream
       responses:
+        '200':
+          description: >
+            Process definition with the same BPMN process ID and version already
+            exists and the content is identical — deployment ignored, returns
+            the key of the existing definition. If the content differs for the
+            same ID and version, a new version is deployed and 201 is returned
+            instead.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - processDefinitionKey
+                properties:
+                  processDefinitionKey:
+                    type: integer
+                    format: int64
+              example:
+                processDefinitionKey: 4503599627370498
         '201':
           description: Process definition deployed
           content:
@@ -603,17 +635,6 @@ paths:
                 message: >-
                   The provided BPMN file is invalid: missing required 'process'
                   element
-        '409':
-          description: Conflict - process definition already exists
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                code: CONFLICT
-                message: >-
-                  A process definition with the same BPMN process ID and version
-                  already exists
         '500':
           description: Internal server error
           content:
