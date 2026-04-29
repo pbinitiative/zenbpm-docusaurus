@@ -148,6 +148,11 @@ paths:
           schema:
             type: string
           description: Filter by name (partial match)
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Search by DMN resource definition ID or DMN definition name
       responses:
         '200':
           description: List of dmn resource definitions
@@ -703,6 +708,11 @@ paths:
           schema:
             type: string
           description: Filter by BPMN process ID to get all versions of a specific process
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Filter by BPMN process ID or BPMN process name (partial match)
       responses:
         '200':
           description: List of process definitions
@@ -928,11 +938,11 @@ paths:
               type: integer
               format: int64
           description: Filter by process definition key
-        - name: name
+        - name: search
           in: query
           schema:
             type: string
-          description: Filter by name (partial match)
+          description: Search by BPMN process ID or BPMN process name (partial match)
         - name: sortBy
           in: query
           schema:
