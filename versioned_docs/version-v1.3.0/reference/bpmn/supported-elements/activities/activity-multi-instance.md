@@ -57,3 +57,4 @@ approvers = ["mgr-1", "mgr-2", "mgr-3"]
 ## Current Implementation
 
 Supported (sequential and parallel). The **completion condition** (finishing early before all instances complete) is not yet supported.
+

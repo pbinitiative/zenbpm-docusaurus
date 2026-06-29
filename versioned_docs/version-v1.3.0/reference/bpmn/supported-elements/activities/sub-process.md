@@ -53,3 +53,4 @@ A checkout process wraps the payment steps (charge card, send receipt, update in
 ## Current Implementation
 
 Supported. Error Boundary Events on sub-processes are supported.
+

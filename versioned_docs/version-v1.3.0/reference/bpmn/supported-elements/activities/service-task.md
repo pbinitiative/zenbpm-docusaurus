@@ -51,3 +51,4 @@ A payment process uses a Service Task to charge a customer's card. A payment wor
 ## Current Implementation
 
 Fully supported. See [How to implement a Job Worker](/docs/how-to/implement-job-worker) for a step-by-step guide.
+

@@ -1,14 +1,14 @@
-﻿---
+---
 sidebar_position: 60
 ---
-# Parallel gateway
+# Parallel Gateway
 
-A Parallel (AND) gateway splits the flow into all outgoing paths at once and, as a merge, waits for all incoming paths.
+A Parallel (AND) gateway splits the flow into all outgoing paths simultaneously and, when used as a merge, waits for all incoming branches to complete before continuing.
 
 ## Key characteristics
 
-- Diverging: activates all outgoing paths unconditionally.
-- Converging: waits for tokens on all incoming paths before continuing.
+- **Diverging:** activates all outgoing paths unconditionally — no conditions needed.
+- **Converging:** waits for tokens on all incoming paths before releasing the token forward.
 
 ## Graphical notation
 
@@ -18,14 +18,24 @@ A diamond with a "+" icon.
 
 ## XML Definition
 
-`xml
-<bpmn:parallelGateway id="fork" name="Do both">
+```xml
+<bpmn:parallelGateway id="forkChecks" name="Run checks in parallel">
   <bpmn:incoming>Flow_1</bpmn:incoming>
-  <bpmn:outgoing>Flow_a</bpmn:outgoing>
-  <bpmn:outgoing>Flow_b</bpmn:outgoing>
+  <bpmn:outgoing>Flow_creditCheck</bpmn:outgoing>
+  <bpmn:outgoing>Flow_idCheck</bpmn:outgoing>
 </bpmn:parallelGateway>
-`
+
+<bpmn:parallelGateway id="joinChecks" name="All checks done">
+  <bpmn:incoming>Flow_creditResult</bpmn:incoming>
+  <bpmn:incoming>Flow_idResult</bpmn:incoming>
+  <bpmn:outgoing>Flow_decision</bpmn:outgoing>
+</bpmn:parallelGateway>
+```
+
+## Practical example
+
+A loan application process runs a credit check and an identity verification simultaneously. Both must complete before the loan decision gateway is reached. The Parallel Gateway fork starts both, and the join waits for both results.
 
 ## Current Implementation
 
-Supported, with a limitation: handles parallel flow correctly when only one parallel section overlaps at a time. Multiple nested or recursive parallel flows currently have undefined behaviour.
+Supported. Handles parallel flows correctly when one parallel section is active at a time. Multiple nested or deeply recursive parallel flows may have undefined behaviour.

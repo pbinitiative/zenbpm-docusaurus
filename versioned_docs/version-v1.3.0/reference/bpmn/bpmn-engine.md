@@ -102,6 +102,22 @@ For usage please see [OpenAPI](pathname:///redocusaurus/api-v1.3.0.yaml).
 
 ## Workers
 
-## XML parser
+Workers are external processes that handle **Service Task** jobs. The ZenBPM engine creates a job when it reaches a Service Task; a worker picks up the job, executes the business logic, and reports the result back.
 
-TODO: add information about how we are parsing xml definitions of processes
+### Job lifecycle
+
+1. Engine reaches a Service Task → creates a job with the configured `jobType`.
+2. Worker polls `POST /jobs/activate` for jobs of the matching type.
+3. Worker processes the job and calls either:
+   - `POST /jobs/{jobKey}/complete` — success, optionally returning output variables.
+   - `POST /jobs/{jobKey}/fail` — failure, with optional retry count.
+   - `POST /jobs/{jobKey}/error` — BPMN error, which triggers an Error Boundary Event.
+4. Engine continues execution from the Service Task.
+
+See [How to implement a Job Worker](/docs/how-to/implement-job-worker) for a complete guide.
+
+## XML Parser
+
+The engine parses BPMN 2.0 XML definitions on deployment. Supported elements and their configuration attributes are documented in the [Supported Elements](/reference/bpmn/supported-elements) reference.
+
+The parser validates the XML structure and resolves references between elements (e.g. message definitions, error codes, called processes). Invalid or unsupported elements are logged as warnings and skipped where possible.

@@ -35,3 +35,4 @@ An order process pauses at a Receive Task after initiating payment. When the pay
 ## Current Implementation
 
 Supported. See [How to send and receive messages](/docs/how-to/send-receive-messages) for correlation details.
+
