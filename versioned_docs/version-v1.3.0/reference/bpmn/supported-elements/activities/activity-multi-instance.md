@@ -1,23 +1,26 @@
-﻿---
+---
 sidebar_position: 170
 ---
-# Activity Multi-Instance
+# Multi-Instance Activity
 
-A configuration that runs the same activity multiple times over a collection of items — sequentially or in parallel.
+A Multi-Instance configuration runs the same activity multiple times — once for each item in a collection. It can run sequentially (one at a time) or in parallel (all at once).
 
 ## Key characteristics
 
-- Applied to a task or subprocess, not a standalone element.
-- Iterates over an input collection; results can be aggregated into an output collection.
+- Applied to a **task** or **sub-process** (not a standalone element).
+- Iterates over an input collection variable.
+- Results can be aggregated into an output collection variable.
+- Two modes: **sequential** and **parallel**.
 
-## Behavior
+## Sequential vs. Parallel
 
-- **Sequential:** one instance at a time, in order.
-- **Parallel:** all instances at once.
+| | Sequential | Parallel |
+|---|---|---|
+| Execution | One instance at a time, in order | All instances at once |
+| Use when | Order matters, each result feeds the next | Independent items, speed is priority |
+| Notation | Three horizontal bars at the bottom | Three vertical bars at the bottom |
 
 ## Graphical notation
-
-Three short bars on the activity: vertical = parallel, horizontal = sequential.
 
 ![Parallel Multi-instance usage example](./../../../assets/bpmn/parallel.svg)
 
@@ -25,14 +28,32 @@ Three short bars on the activity: vertical = parallel, horizontal = sequential.
 
 ## XML Definition
 
-`xml
-<bpmn:serviceTask id="notify" name="Notify approver">
+```xml
+<bpmn:serviceTask id="notifyApprovers" name="Notify approver">
+  <bpmn:extensionElements>
+    <zeebe:taskDefinition type="notification-service" />
+    <zeebe:ioMapping>
+      <zeebe:input source="=approver" target="currentApprover" />
+    </zeebe:ioMapping>
+  </bpmn:extensionElements>
   <bpmn:incoming>Flow_1</bpmn:incoming>
   <bpmn:outgoing>Flow_2</bpmn:outgoing>
-  <bpmn:multiInstanceLoopCharacteristics isSequential="false" />
+  <bpmn:multiInstanceLoopCharacteristics isSequential="false">
+    <bpmn:loopDataInputRef>approvers</bpmn:loopDataInputRef>
+    <bpmn:dataInput itemSubjectRef="approver" />
+  </bpmn:multiInstanceLoopCharacteristics>
 </bpmn:serviceTask>
-`
+```
+
+## Practical example
+
+An approval process needs to notify all managers in a department. The `approvers` variable holds a list of manager IDs. A parallel multi-instance Service Task sends a notification to each manager simultaneously.
+
+```
+approvers = ["mgr-1", "mgr-2", "mgr-3"]
+→ 3 notification jobs created and processed in parallel
+```
 
 ## Current Implementation
 
-Supported (sequential and parallel). The completion condition (finishing early before all instances complete) is not supported yet.
+Supported (sequential and parallel). The **completion condition** (finishing early before all instances complete) is not yet supported.
