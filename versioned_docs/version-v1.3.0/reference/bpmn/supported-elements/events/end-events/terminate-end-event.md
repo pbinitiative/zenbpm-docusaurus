@@ -1,9 +1,9 @@
-﻿---
+---
 sidebar_position: 4
 ---
 # Terminate End Event
 
-An End Event marks where a path of execution finishes. The Terminate End Event immediately ends the entire process instance, cancelling all remaining tokens, jobs, and subscriptions — regardless of other active paths.
+A Terminate End Event immediately ends the entire process instance, cancelling all remaining tokens, jobs, and subscriptions — regardless of other active paths.
 
 ## Key characteristics
 
@@ -14,6 +14,8 @@ An End Event marks where a path of execution finishes. The Terminate End Event i
 ## Graphical notation
 
 A thick single-line circle with a filled circle inside.
+
+![Terminate end event](./../../../../assets/bpmn/terminate-end-event.svg)
 
 ## XML Definition
 
@@ -27,3 +29,4 @@ A thick single-line circle with a filled circle inside.
 ## Current Implementation
 
 Supported.
+

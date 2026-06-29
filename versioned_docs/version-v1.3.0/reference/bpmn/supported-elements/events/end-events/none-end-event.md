@@ -1,9 +1,9 @@
-﻿---
+---
 sidebar_position: 1
 ---
 # None End Event
 
-An End Event marks where a path of execution finishes — the process instance completes once no active tokens remain. The None End Event is the simplest variant: it ends the path without throwing any result.
+The simplest end event — it ends the current path without throwing any result. The process instance completes once no active tokens remain.
 
 ## Key characteristics
 

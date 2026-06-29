@@ -1,4 +1,4 @@
-﻿---
+---
 sidebar_position: 5
 ---
 # Link Intermediate Throw Event
@@ -9,21 +9,24 @@ The sending side of a link pair. It connects two points in the same process with
 
 - Has one incoming sequence flow; no outgoing flow.
 - Paired by name with a Link Intermediate Catch Event in the same process.
-- Used to keep large diagrams readable ("off-page connector").
+- Commonly used as an "off-page connector" to keep large diagrams readable.
 
 ## Graphical notation
 
 A double-line circle with a filled arrow icon.
 
+![Link intermediate throw event](./../../../../assets/bpmn/link-intermediate-throw-event.svg)
+
 ## XML Definition
 
-`xml
+```xml
 <bpmn:intermediateThrowEvent id="linkOut" name="ContinueA">
   <bpmn:incoming>Flow_1</bpmn:incoming>
   <bpmn:linkEventDefinition name="A" />
 </bpmn:intermediateThrowEvent>
-`
+```
 
 ## Current Implementation
 
 Supported.
+

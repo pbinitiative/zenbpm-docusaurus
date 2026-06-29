@@ -1,14 +1,14 @@
-﻿---
+---
 sidebar_position: 2
 ---
 # Message Intermediate Throw Event
 
-An intermediate event that sends a defined message and then continues execution.
+An intermediate event that sends a defined message and then continues execution without waiting.
 
 ## Key characteristics
 
 - Has one incoming and one outgoing sequence flow.
-- Sends the message and continues without waiting.
+- Sends the message and immediately continues — does not block.
 
 ## Graphical notation
 
@@ -18,14 +18,15 @@ A double-line circle with a filled envelope icon.
 
 ## XML Definition
 
-`xml
+```xml
 <bpmn:intermediateThrowEvent id="sendMsg" name="Send message">
   <bpmn:incoming>Flow_1</bpmn:incoming>
   <bpmn:outgoing>Flow_2</bpmn:outgoing>
   <bpmn:messageEventDefinition messageRef="Message_1" />
 </bpmn:intermediateThrowEvent>
-`
+```
 
 ## Current Implementation
 
 Supported.
+

@@ -1,4 +1,4 @@
-﻿---
+---
 sidebar_position: 3
 ---
 # Error Boundary Event
@@ -10,7 +10,7 @@ A boundary event that triggers when a matching BPMN error is raised inside the a
 - Attached to an activity; has no incoming flow and one outgoing flow.
 - Matches a thrown error by `errorCode`.
 - Matching walks up the scope hierarchy; an unhandled error becomes an incident.
-- Always interrupting — it cancels the host activity.
+- Always interrupting — cancels the host activity when triggered.
 
 ## Supported activity types
 
@@ -20,14 +20,16 @@ Service task, User task, Business Rule task, Script task, Call activity.
 
 A solid double-line circle on the activity border with a lightning-bolt icon.
 
+![Boundary event usage example](./../../../../assets/bpmn/error-boundary-event.svg)
+
 ## XML Definition
 
-`xml
+```xml
 <bpmn:boundaryEvent id="onError" name="On error" attachedToRef="Task_1">
   <bpmn:outgoing>Flow_2</bpmn:outgoing>
   <bpmn:errorEventDefinition errorRef="Error_1" />
 </bpmn:boundaryEvent>
-`
+```
 
 ## Current Implementation
 
