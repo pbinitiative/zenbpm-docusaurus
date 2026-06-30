@@ -1,0 +1,97 @@
+name: version docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version without v prefix, for example 2.0.0.
+        required: true
+        type: string
+      backend_tag:
+        description: Backend tag to read docs artifacts from, for example v2.0.0.
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: docs-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  version-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create release app token
+        id: release-app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: pbinitiative
+          repositories: |
+            zenbpm-docusaurus
+            zenbpm
+
+      - name: Checkout docs
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.release-app-token.outputs.token }}
+          fetch-depth: 0
+
+      - name: Fail if tag already exists
+        env:
+          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
+          RELEASE_TAG: v${{ inputs.version }}
+        run: |
+          if gh api -H "Accept: application/vnd.github+json" "/repos/pbinitiative/zenbpm-docusaurus/git/ref/tags/$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Tag $RELEASE_TAG already exists in zenbpm-docusaurus" >&2
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Download versioned source artifacts
+        env:
+          BACKEND_TAG: ${{ inputs.backend_tag }}
+        run: |
+          curl -fsSL "https://raw.githubusercontent.com/pbinitiative/zenbpm/${BACKEND_TAG}/openapi/api.yaml" \
+            -o openapi/redocusaurus/api.yaml
+          curl -fsSL "https://raw.githubusercontent.com/pbinitiative/zenbpm/${BACKEND_TAG}/internal/grpc/proto/zenbpm.proto" \
+            -o proto/zenbpm.proto
+
+      - name: Create docs version
+        env:
+          RELEASE_TAG: v${{ inputs.version }}
+        run: npm run version -- "$RELEASE_TAG"
+
+      - name: Build documentation
+        env:
+          BASE_URL: /
+          SITE_URL: https://zenbpm.pbinitiative.org
+        run: npm run build
+
+      - name: Commit, tag, and push docs version
+        env:
+          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
+          RELEASE_TAG: v${{ inputs.version }}
+        run: |
+          git config user.name "zenbpm-release-bot"
+          git config user.email "zenbpm-release-bot@users.noreply.github.com"
+          git add docs openapi proto versioned_docs versioned_sidebars versions.json
+          if git diff --cached --quiet; then
+            echo "No docs release changes to commit."
+          else
+            git commit -m "docs: version $RELEASE_TAG"
+          fi
+          git tag "$RELEASE_TAG"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/pbinitiative/zenbpm-docusaurus.git" HEAD:main "$RELEASE_TAG"
