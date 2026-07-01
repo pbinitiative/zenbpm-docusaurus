@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Release version without v prefix, for example 2.0.0.
+        description: Release version with v prefix, for example v2.0.0.
         required: true
         type: string
       backend_tag:
@@ -43,7 +43,7 @@ jobs:
       - name: Fail if tag already exists
         env:
           GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
-          RELEASE_TAG: v${{ inputs.version }}
+          RELEASE_TAG: ${{ inputs.version }}
         run: |
           if gh api -H "Accept: application/vnd.github+json" "/repos/pbinitiative/zenbpm-docusaurus/git/ref/tags/$RELEASE_TAG" >/dev/null 2>&1; then
             echo "Tag $RELEASE_TAG already exists in zenbpm-docusaurus" >&2
@@ -71,7 +71,7 @@ jobs:
 
       - name: Create docs version
         env:
-          RELEASE_TAG: v${{ inputs.version }}
+          RELEASE_TAG: ${{ inputs.version }}
         run: npm run version -- "$RELEASE_TAG"
 
       - name: Build documentation
@@ -83,7 +83,7 @@ jobs:
       - name: Commit, tag, and push docs version
         env:
           GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
-          RELEASE_TAG: v${{ inputs.version }}
+          RELEASE_TAG: ${{ inputs.version }}
         run: |
           git config user.name "zenbpm-release-bot"
           git config user.email "zenbpm-release-bot@users.noreply.github.com"
