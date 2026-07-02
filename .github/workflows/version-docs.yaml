@@ -63,11 +63,12 @@ jobs:
       - name: Download versioned source artifacts
         env:
           BACKEND_TAG: ${{ inputs.backend_tag }}
+          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
         run: |
-          curl -fsSL "https://raw.githubusercontent.com/pbinitiative/zenbpm/${BACKEND_TAG}/openapi/api.yaml" \
-            -o openapi/redocusaurus/api.yaml
-          curl -fsSL "https://raw.githubusercontent.com/pbinitiative/zenbpm/${BACKEND_TAG}/internal/grpc/proto/zenbpm.proto" \
-            -o proto/zenbpm.proto
+          gh api "/repos/pbinitiative/zenbpm/contents/openapi/api.yaml?ref=${BACKEND_TAG}" --jq .content \
+            | base64 -d > openapi/redocusaurus/api.yaml
+          gh api "/repos/pbinitiative/zenbpm/contents/pkg/zenclient/proto/zenbpm.proto?ref=${BACKEND_TAG}" --jq .content \
+            | base64 -d > proto/zenbpm.proto
 
       - name: Create docs version
         env:
