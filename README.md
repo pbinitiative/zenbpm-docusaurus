@@ -7,7 +7,7 @@ and proto API references, and deploys the finished site.
 
 📖 **Read the docs:**
 
-[https://zenbpm.pbinitiative.org/](https://zenbpm.pbinitiative.org/)
+[ZenBPM Documentation Website](https://zenbpm.pbinitiative.org/)
 
 ## ⚠️ Where to edit documentation
 
