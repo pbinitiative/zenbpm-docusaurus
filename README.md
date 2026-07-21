@@ -31,7 +31,7 @@ Structure content into four distinct types (based on the
 
 ## Run the site locally
 
-Requires [Node.js](https://nodejs.org/). Running locally lets you preview live
+Requires [Node.js](https://nodejs.org/) (v18 or higher). Running locally lets you preview live
 changes from `zenbpm/docs`.
 
 By default, this expects the ZenBPM repository to be cloned in a folder named
