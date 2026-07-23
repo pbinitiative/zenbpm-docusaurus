@@ -1,39 +1,80 @@
 # ZenBPM Documentation
 
-This is a service repository only.<br>
-All changes of documentation must be made in `https://github.com/pbinitiative/zenbpm/actions` repository, `docs` directory.
+This repository builds and publishes the **ZenBPM documentation website** using
+[Docusaurus](https://docusaurus.io/). It pulls Markdown content from the main
+[zenbpm](https://github.com/pbinitiative/zenbpm) repository, renders the OpenAPI
+and proto API references, and deploys the finished site.
+
+📖 **Read the docs:**
+
+[ZenBPM Documentation Website](https://zenbpm.pbinitiative.org/)
+
+## ⚠️ Where to edit documentation
+
+**Do not edit documentation content in this repository.**
+
+This repo only *builds and publishes* the site. All documentation content lives in
+the [`docs/` folder of the main zenbpm repository](https://github.com/pbinitiative/zenbpm/tree/main/docs).
+
+Edit it there - changes merged into the `main` branch of `zenbpm` are synced into
+this repository and deployed automatically.
 
 ## Documentation rules
-- Separate your docs into four types: tutorials, how‑to guides, reference, and explanations - don’t mix them
-- Use **tutorials** for guided learning, step‑by‑step for beginners 
-- Use **how‑to** guides for goal‑focused tasks with clear, concise steps
-- Use **reference** for factual, structured lookup—no instructions or theory.
-- Use **explanations** for background and “why” context—no procedures or specs
 
-## Versions
-To add a new version of documentation, run:
+Structure content into four distinct types (based on the
+[Diátaxis](https://diataxis.fr/) framework) and don't mix them:
+
+- **Tutorials** - guided, step-by-step learning for beginners.
+- **How-to guides** - goal-focused tasks with clear, concise steps.
+- **Reference** - factual, structured lookup. No instructions or theory.
+- **Explanations** - background and "why" context. No procedures or specs.
+
+## Run the site locally
+
+Requires [Node.js](https://nodejs.org/) (v18 or higher). Running locally lets you preview live
+changes from `zenbpm/docs`.
+
+By default, this expects the ZenBPM repository to be cloned in a folder named
+`zenbpm` next to this repository:
+
 ```
-npm run version -- v1.2.3
+parent/
+├── zenbpm/                 # main repo (docs content)
+└── zenbpm-docusaurus/      # this repo
 ```
-This automatically:
-- Copies the current OpenAPI spec and proto file with version suffix
-- Creates the Docusaurus docs version
-- Updates versioned docs to reference version-specific specs
 
-The `docusaurus.config.js` dynamically generates redocusaurus spec entries from `versions.json`.
+If the main repository lives elsewhere, set its path in a `.env` file:
 
-## Run local
-Using node.js, you can see live changes from `zenbpm/docs`.<br>
-If the ZenBPM repository is cloned inside the folder `zenbpm` next to this repository, you can just run the
-commands.<br>
-In case the main repository is in another path, please define the path in the `.env` file as `ZENBPM_SRC`.
+```
+ZENBPM_SRC=/path/to/zenbpm
+```
+
+Then start the preview:
 
 ```
 npm install
 npm run preview
 ```
 
+## Versioning
+
+To publish a new version of the documentation, run:
+
+```
+npm run version -- v1.2.3
+```
+
+This automatically:
+
+- Copies the current OpenAPI spec and proto file with a version suffix.
+- Creates the Docusaurus docs version.
+- Updates versioned docs to reference the version-specific specs.
+
+`docusaurus.config.js` dynamically generates the redocusaurus spec entries from
+`versions.json`.
+
 ## Publishing
-Changes of documentation in `main` branch will be automatically deployed.
-Documents from the `docs` folder in the ZenBPM repository's `main` branch will be automatically pushed into this
-repository.
+
+Deployment is automatic. Documentation from the `docs/` folder of the `zenbpm`
+repository's `main` branch is pushed into this repository, and any change to this
+repository's `main` branch is deployed to the live site.
