@@ -1,0 +1,50 @@
+/**
+ * Site-wide custom styles.
+ * BPMN reference pages mark element icons with .bpmn-supported / .bpmn-unsupported
+ * inside .bpmn-coverage and .bpmn-types-table tables.
+ */
+
+/*
+ * The activities table is ten columns wide. At the default 0.75rem cell
+ * padding the unclamped icons no longer fit the content column and the last
+ * cell is cut off, so these tables run tighter than the site default.
+ */
+.bpmn-coverage th,
+.bpmn-coverage td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.4rem 0.35rem;
+}
+
+/*
+ * Icons are sized by their height attribute alone. Infima's global
+ * img { max-width: 100% } would otherwise clamp them to the column width —
+ * which is set by the header text, so "User" or "Send" squeeze their icon
+ * well below the declared height and the row renders at mismatched sizes.
+ * max-width: none lets the column grow to the icon instead.
+ */
+.bpmn-coverage img,
+.bpmn-types-table img {
+  display: inline-block;
+  vertical-align: middle;
+  width: auto;
+  max-width: none;
+}
+
+/*
+ * Supported: green tint. The icons are loaded as <img>, so fill/stroke cannot
+ * be targeted directly — instead a filter chain recolors the image:
+ * brightness() lifts the near-black strokes out of pure black so that
+ * sepia() can colorize both the strokes and the white fills, then
+ * hue-rotate() shifts the tint to green. This also greens stroke-only
+ * icons (e.g. flows) that have no fill to tint.
+ */
+img.bpmn-supported {
+  filter: brightness(1.35) sepia(100%) saturate(300%) hue-rotate(70deg);
+}
+
+/* Not supported: greyed out */
+img.bpmn-unsupported {
+  opacity: 0.45;
+  filter: grayscale(1);
+}
