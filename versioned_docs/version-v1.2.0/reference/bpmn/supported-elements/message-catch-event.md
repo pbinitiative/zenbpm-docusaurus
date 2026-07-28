@@ -96,7 +96,7 @@ A double-lined circle containing a message (envelope) icon.
 
 ## Usage
 
-Messages can be published through API or by triggering [Intermediate throw event](/reference/bpmn/supported-elements/message-throw-event).
+Messages can be published through API or by triggering [Intermediate throw event](./message-throw-event.md).
 <!-- <ApiOperation id="api" pointer="#/paths/~1messages/post" example={true} />-->
 
 Future plans:

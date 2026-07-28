@@ -96,7 +96,7 @@ Published message variables are available to the Message Catch Event as payload 
 - **With output mappings** — only explicitly mapped variables are propagated to the catching scope.
 - **Without output mappings** — all published message variables are propagated to the catching scope as-is.
 
-See [Variables](/reference/bpmn/variables) for the general activity vs. catch event rules.
+See [Variables](../variables.md) for the general activity vs. catch event rules.
 
 ## Graphic Notation
 ![Message catch event usage example](./../../assets/bpmn/message_catch.svg)
@@ -105,7 +105,7 @@ A double-lined circle containing a message (envelope) icon.
 
 ## Usage
 
-Messages can be published through API or by triggering [Intermediate throw event](/reference/bpmn/supported-elements/message-throw-event).
+Messages can be published through API or by triggering [Intermediate throw event](./message-throw-event.md).
 <!-- <ApiOperation id="api" pointer="#/paths/~1messages/post" example={true} />-->
 
 Future plans:
