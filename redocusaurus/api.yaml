@@ -82,6 +82,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -180,6 +186,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -237,6 +245,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -285,6 +295,7 @@ paths:
                   type: string
                 variables:
                   type: object
+                  nullable: true
             example:
               bindingType: latest
               variables:
@@ -346,6 +357,12 @@ paths:
               example:
                 code: NOT_FOUND
                 message: No decision definition found for the given decisionId
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -470,6 +487,8 @@ paths:
               example:
                 code: BAD_REQUEST
                 message: The request parameters are invalid
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -553,6 +572,8 @@ paths:
               example:
                 code: NOT_FOUND
                 message: No decision instance found for the given key
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -591,7 +612,10 @@ paths:
                 resource:
                   type: string
                   format: binary
-                  description: BPMN process definition file (.bpmn format only, max 4MB)
+                  description: >-
+                    BPMN process definition file (.bpmn format only, size
+                    limited by httpServer.maxRequestBodyBytes, 10 MiB by
+                    default)
             encoding:
               resource:
                 contentType: application/octet-stream
@@ -640,6 +664,12 @@ paths:
                 message: >-
                   The provided BPMN file is invalid: missing required 'process'
                   element
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -744,6 +774,8 @@ paths:
               example:
                 code: BAD_REQUEST
                 message: The request parameters are invalid
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -805,6 +837,8 @@ paths:
               example:
                 code: NOT_FOUND
                 message: No process definition found for the given key
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -873,6 +907,8 @@ paths:
               example:
                 code: NOT_FOUND
                 message: No process definition found for the given key
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -1008,6 +1044,8 @@ paths:
               example:
                 code: BAD_REQUEST
                 message: The request parameters are invalid
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -1054,6 +1092,7 @@ paths:
                     definition identified by bpmnProcessId.
                 variables:
                   type: object
+                  nullable: true
                 historyTimeToLive:
                   type: string
                   description: >-
@@ -1100,6 +1139,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -1154,6 +1199,7 @@ paths:
             type: integer
             format: int32
             minimum: 1
+            maximum: 100
             default: 10
           description: Number of items per page
           example: 10
@@ -1260,6 +1306,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -1310,6 +1358,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -1368,6 +1418,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '409':
           description: >-
             Conflict (e.g process instance is not in correct state for this
@@ -1376,6 +1428,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -1423,6 +1479,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '409':
           description: >-
             Conflict (e.g process instance is not in correct state for this
@@ -1472,6 +1530,7 @@ paths:
             type: integer
             format: int32
             minimum: 1
+            maximum: 100
             default: 10
           description: Number of items per page
           example: 10
@@ -1544,6 +1603,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -1585,6 +1646,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '409':
           description: Conflict (e.g process instance is not in cancellable state)
           content:
@@ -1678,6 +1741,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -1771,6 +1836,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -1862,6 +1929,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -1892,11 +1961,16 @@ paths:
           schema:
             type: integer
             format: int32
+            minimum: 1
+            default: 1
         - name: size
           in: query
           schema:
             type: integer
             format: int32
+            minimum: 1
+            maximum: 100
+            default: 10
         - name: state
           in: query
           schema:
@@ -1914,6 +1988,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -1944,11 +2020,16 @@ paths:
           schema:
             type: integer
             format: int32
+            minimum: 1
+            default: 1
         - name: size
           in: query
           schema:
             type: integer
             format: int32
+            minimum: 1
+            maximum: 100
+            default: 10
         - name: state
           in: query
           schema:
@@ -1966,6 +2047,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -1996,11 +2079,16 @@ paths:
           schema:
             type: integer
             format: int32
+            minimum: 1
+            default: 1
         - name: size
           in: query
           schema:
             type: integer
             format: int32
+            minimum: 1
+            maximum: 100
+            default: 10
         - name: state
           in: query
           schema:
@@ -2018,6 +2106,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -2076,6 +2166,8 @@ paths:
               example:
                 code: NOT_FOUND
                 message: No process instance found for the given key
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -2200,6 +2292,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -2252,6 +2346,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -2306,6 +2402,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -2341,6 +2443,7 @@ paths:
               properties:
                 variables:
                   type: object
+                  nullable: true
             example:
               variables:
                 result: success
@@ -2361,6 +2464,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -2401,6 +2510,7 @@ paths:
                     matched.
                 variables:
                   type: object
+                  nullable: true
             example:
               errorCode: 123-456-789
               variables:
@@ -2420,6 +2530,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -2453,6 +2569,7 @@ paths:
                   type: string
                 variables:
                   type: object
+                  nullable: true
             example:
               correlationKey: 011-235-813
               messageName: payment-received
@@ -2482,6 +2599,12 @@ paths:
               example:
                 code: NOT_FOUND
                 message: The requested resource was not found
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -2529,6 +2652,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -2563,6 +2688,7 @@ paths:
                   format: int64
                 variables:
                   type: object
+                  nullable: true
                 startingElementIds:
                   type: array
                   description: Allows for a start at chosen element id
@@ -2598,6 +2724,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -2631,6 +2763,7 @@ paths:
                   format: int64
                 variables:
                   type: object
+                  nullable: true
                   description: Sets process instance variables.
                 elementInstancesToStart:
                   type: array
@@ -2668,6 +2801,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
         '500':
           description: Internal server error
           content:
@@ -2697,6 +2836,8 @@ paths:
       responses:
         '200':
           description: Pprof server started
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -2720,6 +2861,8 @@ paths:
       responses:
         '200':
           description: Pprof server stopped
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
         '500':
           description: Internal server error
           content:
@@ -2727,6 +2870,41 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  responses:
+    MethodNotAllowed:
+      description: The HTTP method is not allowed for the requested path.
+      headers:
+        Allow:
+          description: Allowed HTTP methods for the requested path.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: METHOD_NOT_ALLOWED
+            message: method not allowed
+    PayloadTooLarge:
+      description: >-
+        The request body exceeds the configured size limit
+        (httpServer.maxRequestBodyBytes, 10 MiB by default).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: PAYLOAD_TOO_LARGE
+            message: 'http: request body too large'
+    UnsupportedMediaType:
+      description: The request body content type is not supported by the operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: UNSUPPORTED_MEDIA_TYPE
+            message: unsupported content type
   schemas:
     DecisionInstancePartitionPage:
       type: object
