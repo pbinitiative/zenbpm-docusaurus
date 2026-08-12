@@ -618,7 +618,7 @@ paths:
                     default)
             encoding:
               resource:
-                contentType: application/octet-stream
+                contentType: application/octet-stream, application/xml
       responses:
         '200':
           description: >
