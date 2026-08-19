@@ -16,41 +16,65 @@ permissions:
   contents: write
 
 concurrency:
-  group: docs-${{ inputs.version }}
+  group: docs-versioning
   cancel-in-progress: false
 
 jobs:
   version-docs:
     runs-on: ubuntu-latest
     steps:
+      - name: Validate release tags
+        env:
+          BACKEND_TAG: ${{ inputs.backend_tag }}
+          RELEASE_TAG: ${{ inputs.version }}
+        run: |
+          release_pattern='^v[0-9]+\.[0-9]+\.[0-9]+(-rc\.?[1-9][0-9]*)?$'
+          if [[ ! "$RELEASE_TAG" =~ $release_pattern ]]; then
+            echo "Version must be vX.Y.Z, vX.Y.Z-rcN, or vX.Y.Z-rc.N" >&2
+            exit 1
+          fi
+          if [[ ! "$BACKEND_TAG" =~ $release_pattern ]]; then
+            echo "Backend tag must be vX.Y.Z, vX.Y.Z-rcN, or vX.Y.Z-rc.N" >&2
+            exit 1
+          fi
+          if [ "$BACKEND_TAG" != "$RELEASE_TAG" ]; then
+            echo "Backend tag $BACKEND_TAG must match release tag $RELEASE_TAG" >&2
+            exit 1
+          fi
+
+      - name: Resolve docs release state
+        id: release-state
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.version }}
+        run: |
+          if gh api -H "Accept: application/vnd.github+json" "/repos/pbinitiative/zenbpm-docusaurus/git/ref/tags/$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Tag $RELEASE_TAG already exists; reusing it for Pages deployment."
+            echo "tag-exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag-exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Create release app token
         id: release-app-token
+        if: ${{ steps.release-state.outputs.tag-exists != 'true' }}
         uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.APP_ID_ZENBPM_RELEASE }}
           private-key: ${{ secrets.APP_PRIVATE_KEY_ZENBPM_RELEASE  }}
           owner: pbinitiative
           repositories: |
-            zenbpm-docusaurus
             zenbpm
+          permission-contents: read
 
       - name: Checkout docs
         uses: actions/checkout@v4
         with:
-          token: ${{ steps.release-app-token.outputs.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Fail if tag already exists
-        env:
-          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
-          RELEASE_TAG: ${{ inputs.version }}
-        run: |
-          if gh api -H "Accept: application/vnd.github+json" "/repos/pbinitiative/zenbpm-docusaurus/git/ref/tags/$RELEASE_TAG" >/dev/null 2>&1; then
-            echo "Tag $RELEASE_TAG already exists in zenbpm-docusaurus" >&2
-            exit 1
-          fi
-
       - name: Setup Node.js
+        if: ${{ steps.release-state.outputs.tag-exists != 'true' }}
         uses: actions/setup-node@v4
         with:
           node-version: '21'
@@ -58,9 +82,11 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
+        if: ${{ steps.release-state.outputs.tag-exists != 'true' }}
         run: npm install
 
       - name: Download versioned source artifacts
+        if: ${{ steps.release-state.outputs.tag-exists != 'true' }}
         env:
           BACKEND_TAG: ${{ inputs.backend_tag }}
           GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
@@ -71,19 +97,21 @@ jobs:
             | base64 -d > proto/zenbpm.proto
 
       - name: Create docs version
+        if: ${{ steps.release-state.outputs.tag-exists != 'true' }}
         env:
           RELEASE_TAG: ${{ inputs.version }}
         run: npm run version -- "$RELEASE_TAG"
 
       - name: Build documentation
+        if: ${{ steps.release-state.outputs.tag-exists != 'true' }}
         env:
           BASE_URL: /
           SITE_URL: https://zenbpm.pbinitiative.org
         run: npm run build
 
       - name: Commit, tag, and push docs version
+        if: ${{ steps.release-state.outputs.tag-exists != 'true' }}
         env:
-          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
           RELEASE_TAG: ${{ inputs.version }}
         run: |
           git config user.name "zenbpm-release-bot"
@@ -95,4 +123,11 @@ jobs:
             git commit -m "docs: version $RELEASE_TAG"
           fi
           git tag "$RELEASE_TAG"
-          git push "https://x-access-token:${GH_TOKEN}@github.com/pbinitiative/zenbpm-docusaurus.git" HEAD:main "$RELEASE_TAG"
+          git push origin HEAD:main "$RELEASE_TAG"
+
+  deploy-docs:
+    needs: version-docs
+    uses: ./.github/workflows/docs.yml
+    with:
+      checkout_ref: ${{ inputs.version }}
+    secrets: inherit

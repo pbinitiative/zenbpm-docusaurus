@@ -4,17 +4,31 @@ on:
   push:
     branches:
       - main
+  workflow_call:
+    inputs:
+      checkout_ref:
+        description: Git ref to deploy. Defaults to the triggering commit.
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: docs-pages-deployment
+  cancel-in-progress: false
 
 jobs:
-
   deploy-docs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.checkout_ref || github.sha }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '21'
           cache: 'npm'
@@ -28,7 +42,7 @@ jobs:
         working-directory: .
         env:
           BASE_URL: /
-          SITE_URL: https://zenbpm.pbinitiative.org          
+          SITE_URL: https://zenbpm.pbinitiative.org
         run: npm run build
 
       - name: Deploy to GitHub Pages
