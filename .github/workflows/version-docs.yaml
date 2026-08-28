@@ -28,13 +28,13 @@ jobs:
           BACKEND_TAG: ${{ inputs.backend_tag }}
           RELEASE_TAG: ${{ inputs.version }}
         run: |
-          release_pattern='^v[0-9]+\.[0-9]+\.[0-9]+(-rc\.?[1-9][0-9]*)?$'
+          release_pattern='^v[0-9]+\.[0-9]+\.[0-9]+$'
           if [[ ! "$RELEASE_TAG" =~ $release_pattern ]]; then
-            echo "Version must be vX.Y.Z, vX.Y.Z-rcN, or vX.Y.Z-rc.N" >&2
+            echo "Version must be vX.Y.Z" >&2
             exit 1
           fi
           if [[ ! "$BACKEND_TAG" =~ $release_pattern ]]; then
-            echo "Backend tag must be vX.Y.Z, vX.Y.Z-rcN, or vX.Y.Z-rc.N" >&2
+            echo "Backend tag must be vX.Y.Z" >&2
             exit 1
           fi
           if [ "$BACKEND_TAG" != "$RELEASE_TAG" ]; then

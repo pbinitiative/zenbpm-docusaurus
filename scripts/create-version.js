@@ -8,6 +8,10 @@ if (!version) {
   console.error('Example: node scripts/create-version.js v1.1.0');
   process.exit(1);
 }
+if (!/^v\d+\.\d+\.\d+$/.test(version)) {
+  console.error(`Version must be vX.Y.Z: ${version}`);
+  process.exit(1);
+}
 
 const root = path.resolve(__dirname, '..');
 const versionId = version.replace(/\./g, '_');
