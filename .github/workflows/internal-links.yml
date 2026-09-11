@@ -1,0 +1,63 @@
+name: Internal links
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'openapi/**'
+      - 'proto/**'
+      - 'static/**'
+      - 'src/pages/**'
+      - 'docusaurus.config.js'
+      - 'sidebars.js'
+      - 'versions.json'
+      - 'scripts/check-relative-links.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/internal-links.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'openapi/**'
+      - 'proto/**'
+      - 'static/**'
+      - 'src/pages/**'
+      - 'docusaurus.config.js'
+      - 'sidebars.js'
+      - 'versions.json'
+      - 'scripts/check-relative-links.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/internal-links.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: internal-links-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check internal links
+        env:
+          BASE_URL: /
+          SITE_URL: https://zenbpm.pbinitiative.org
+        run: npm run check:links

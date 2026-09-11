@@ -96,6 +96,13 @@ jobs:
           gh api "/repos/pbinitiative/zenbpm/contents/pkg/zenclient/proto/zenbpm.proto?ref=${BACKEND_TAG}" --jq .content \
             | base64 -d > proto/zenbpm.proto
 
+      - name: Check current documentation links
+        if: ${{ steps.release-state.outputs.tag-exists != 'true' }}
+        env:
+          BASE_URL: /
+          SITE_URL: https://zenbpm.pbinitiative.org
+        run: npm run check:links
+
       - name: Create docs version
         if: ${{ steps.release-state.outputs.tag-exists != 'true' }}
         env:

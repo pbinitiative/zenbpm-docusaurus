@@ -3,6 +3,7 @@ const fs = require('fs');
 const versions = fs.existsSync('./versions.json')
   ? JSON.parse(fs.readFileSync('./versions.json', 'utf8'))
   : [];
+const currentDocsLinkCheck = process.env.CURRENT_DOCS_LINK_CHECK === 'true';
 
 const versionId = (v) => v.replace(/\./g, '_');
 
@@ -24,6 +25,9 @@ module.exports = {
   staticDirectories: ['openapi', 'proto', 'static'],
   url: process.env.SITE_URL || 'http://localhost:3000',
   baseUrl:  process.env.BASE_URL || '/',
+  onBrokenLinks: 'throw',
+  onBrokenAnchors: currentDocsLinkCheck ? 'throw' : 'warn',
+  onBrokenMarkdownLinks: currentDocsLinkCheck ? 'throw' : 'warn',
 
   presets: [
     [
@@ -32,12 +36,17 @@ module.exports = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.js',
-          lastVersion: versions[0] || 'current',
-          versions: {
-            current: {
-              label: 'Next 🚧',
-            },
-          },
+          ...(currentDocsLinkCheck
+            ? { disableVersioning: true }
+            : {
+              lastVersion: versions[0] || 'current',
+              versions: {
+                current: {
+                  label: 'Next 🚧',
+                },
+              },
+            }
+          ),
           async sidebarItemsGenerator({ defaultSidebarItemsGenerator, ...args }) {
             const sidebarItems = await defaultSidebarItemsGenerator(args);
             const excludedDir = 'static/'

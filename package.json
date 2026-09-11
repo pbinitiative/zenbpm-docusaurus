@@ -3,6 +3,7 @@
   "scripts": {
     "start": "docusaurus start --host 0.0.0.0",
     "build": "docusaurus build",
+    "check:links": "node scripts/check-relative-links.mjs && CURRENT_DOCS_LINK_CHECK=true docusaurus build --out-dir build-link-check",
     "preview": "node preview.js",
     "version": "node scripts/create-version.js"
   },
@@ -15,5 +16,11 @@
     "dotenv": "^17.1.0",
     "fs-extra": "^11.3.0",
     "redocusaurus": "^2.5.0"
+  },
+  "devDependencies": {
+    "remark-mdx": "3.1.0",
+    "remark-parse": "11.0.0",
+    "unified": "11.0.5",
+    "unist-util-visit": "5.0.0"
   }
 }

@@ -48,6 +48,7 @@ if (fs.existsSync(openapiMdx)) {
 
 // Update all markdown files with spec/proto links
 const mdFiles = [
+  'getting-started/first-bpmn-process.mdx',
   'reference/api-reference.md',
   'reference/bpmn/bpmn-engine.md',
   'index.md',
