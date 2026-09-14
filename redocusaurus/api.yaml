@@ -1982,6 +1982,7 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/EventSubscriptionState'
+          description: Filter by state (omit to list subscriptions in every state)
       responses:
         '200':
           description: List of message subscriptions
@@ -2041,6 +2042,7 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/EventSubscriptionState'
+          description: Filter by state (omit to list subscriptions in every state)
       responses:
         '200':
           description: List of timer subscriptions
@@ -2100,6 +2102,7 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/EventSubscriptionState'
+          description: Filter by state (omit to list subscriptions in every state)
       responses:
         '200':
           description: List of error subscriptions
