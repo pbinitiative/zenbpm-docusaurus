@@ -3850,6 +3850,13 @@ components:
           description: >-
             Variables provided to the job at creation/activation time (from BPMN
             input mappings)
+        taskHeaders:
+          type: object
+          additionalProperties:
+            type: string
+          description: >-
+            Static key/value task headers configured on the BPMN element
+            (zenbpm:taskHeaders)
         outputVariables:
           type: object
           description: >-
