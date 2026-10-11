@@ -34,13 +34,13 @@
 /*
  * Supported: green tint. The icons are loaded as <img>, so fill/stroke cannot
  * be targeted directly — instead a filter chain recolors the image:
- * brightness() lifts the near-black strokes out of pure black so that
- * sepia() can colorize both the strokes and the white fills, then
+ * invert() lifts even pure-black strokes out of black so that brightness()
+ * and sepia() can colorize both the strokes and the white fills, then
  * hue-rotate() shifts the tint to green. This also greens stroke-only
  * icons (e.g. flows) that have no fill to tint.
  */
 img.bpmn-supported {
-  filter: brightness(1.35) sepia(100%) saturate(300%) hue-rotate(70deg);
+  filter: invert(15%) brightness(1.35) sepia(100%) saturate(300%) hue-rotate(70deg);
 }
 
 /* Not supported: greyed out */
