@@ -1,0 +1,126 @@
+---
+sidebar_position: 10
+---
+
+# Error handling
+
+In ZenBPM, in addition to idiomatic Go error handling, we need to return correct HTTP status codes from our exposed REST API.
+Often, the error handling happens deep in lower layers of the backend, including behind gRPC calls.
+In REST controllers, we often lack the information to decide whether to return `NOT_FOUND` (404), `CLUSTER_ERROR` (502), or something else.
+To solve this, we created a simple error composition to encapsulate an error code. It also implements the `error` interface:
+```go
+type ZenError struct {
+    Code ZenErrorCode
+    err  error
+}
+
+func (zenError *ZenError) Error() string {
+    return zenError.err.Error()
+}
+```
+
+There already exists functions that create certain type of the errors, for example:
+```go
+func ClusterError(err error) *ZenError {
+	return &ZenError{ClusterErrorCode, err}
+}
+
+func NotFound(err error) *ZenError {
+	return &ZenError{NotFoundCode, err}
+}
+
+// etc
+```
+
+So if you want to create a new error that would be mapped to some yet unsupported HTTP status code you can just add a new `ZenErrorCode`
+and a corresponding function that creates that error.
+
+Then in the code you would create such error, for example as:
+```go
+err := zenerr.NotFound(fmt.Errorf("failed to find process instance %d", req.GetProcessInstanceKey()))
+return nil, err
+```
+
+If you need to serialize and send the error via GRPC then you can simply call `err.ToProtoError()`:
+```go
+if engine == nil {
+    err := zenerr.ClusterError(fmt.Errorf("engine with partition %d was not found", partitionId))
+	return &proto.GetProcessInstanceResponse{
+	    Error: err.ToProtoError(),
+    }, err
+}
+```
+
+From the other side where you make the GRPC call you can wrap the GRPC `Error` to `ZenError`:
+```go
+if resp != nil && resp.Error != nil {
+    e := fmt.Errorf("failed to get process instance from partition %d", partitionId)
+    return nil, nil, zenerr.ToZenError(resp.Error, e)
+}
+```
+
+Finally that's how you can decide what REST error response to return based on the particular `ZenError`:
+```go
+instance, activeElementInstances, err := s.node.GetProcessInstance(ctx, request.ProcessInstanceKey)
+if err != nil {
+	var zerr *zenerr.ZenError
+	if errors.As(err, &zerr) {
+        switch zerr.Code {
+        case zenerr.ClusterErrorCode:
+            return public.GetProcessInstance502JSONResponse(zerr.ToApiError()), nil
+        case zenerr.NotFoundCode:
+            return public.GetProcessInstance404JSONResponse(zerr.ToApiError()), nil
+        default:
+            return public.GetProcessInstance500JSONResponse(zerr.ToApiError()), nil
+        }
+    }
+    return public.GetProcessInstance500JSONResponse(zenerr.TechnicalError(err).ToApiError()), nil
+}
+```
+
+## Keys of a partition the cluster does not have
+
+A key encodes the partition of its entity, and a request routed by it goes to that partition. A partition
+missing from the cluster state usually means no leader is known yet, a `CLUSTER_ERROR` (502) to retry; but
+a key naming a partition the cluster does not have and is not going to form, such as partition 0, can
+never name anything, and retrying it never passes.
+
+Partition routing tells the two apart. `ClientManager.PartitionLeader` and `state.Cluster.GetPartitionFollower`
+fail with an error wrapping `zenerr.ErrPartitionAbsent` for a partition the cluster does not have and is
+not going to form (see `state.Cluster.PartitionAbsent`); they only check when they find no leader or
+follower, so routing a key costs nothing more. Classify the routing failure of a client-supplied key with
+`keyRoutingFailure`, which answers `NOT_FOUND` for an absent partition and `CLUSTER_ERROR` otherwise. Do not
+wrap the routing error in `zenerr.ClusterError` yourself: that turns an absent partition back into a 502 to
+retry forever.
+
+```go
+partition := zenflake.GetPartitionId(processInstanceKey)
+client, err := node.client.PartitionLeader(partition)
+if err != nil {
+    return keyRoutingFailure("process instance", processInstanceKey, fmt.Errorf("failed to get client: %w", err))
+}
+```
+
+An endpoint listing what belongs to the entity, which answers an unknown key of an existing partition
+with an empty page, answers such a key with the same empty page: check
+`errors.Is(err, zenerr.ErrPartitionAbsent)` on the routing error.
+
+## Errors originating outside of handlers
+
+Not every API error is produced by a handler. The OpenAPI request-validation
+middleware (`internal/rest/middleware.OpenAPIValidator`) rejects invalid
+requests before they reach a handler and answers with the same `Error` JSON
+shape. Its `code` values come from the same `zenerr.ZenErrorCode` vocabulary
+(`ZenErrorCode.ToString()`), so middleware and handlers can never drift apart:
+
+| HTTP status | `code` |
+|---|---|
+| 400 | `BAD_REQUEST` |
+| 404 | `NOT_FOUND` |
+| 405 | `METHOD_NOT_ALLOWED` |
+| 413 | `PAYLOAD_TOO_LARGE` |
+| 415 | `UNSUPPORTED_MEDIA_TYPE` |
+| anything else | `TECHNICAL_ERROR` |
+
+When you add a new error code that the middleware should emit, add it to
+`zenerr.ZenErrorCode` first and map it in `errorCodeForStatus`.
