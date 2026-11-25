@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.8.0">
 <title data-rh="true">Jobs | Documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://zenbpm.pbinitiative.org/next/reference/jobs"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Jobs | Documentation"><meta data-rh="true" name="description" content="Jobs are small tasks that the bpmn engine created by executing process instances. When an external job (job that cannot be handled by the engine itself) is created the token that activated it transitions into waiting state. Token then waits for the job to be completed by 3rd party application by calling API to complete job."><meta data-rh="true" property="og:description" content="Jobs are small tasks that the bpmn engine created by executing process instances. When an external job (job that cannot be handled by the engine itself) is created the token that activated it transitions into waiting state. Token then waits for the job to be completed by 3rd party application by calling API to complete job."><link data-rh="true" rel="canonical" href="https://zenbpm.pbinitiative.org/next/reference/jobs"><link data-rh="true" rel="alternate" href="https://zenbpm.pbinitiative.org/next/reference/jobs" hreflang="en"><link data-rh="true" rel="alternate" href="https://zenbpm.pbinitiative.org/next/reference/jobs" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Reference","item":"https://zenbpm.pbinitiative.org/next/category/reference"},{"@type":"ListItem","position":2,"name":"Jobs","item":"https://zenbpm.pbinitiative.org/next/reference/jobs"}]}</script><link rel="stylesheet" href="/assets/css/styles.ad19761f.css">
-<script src="/assets/js/runtime~main.5a28b185.js" defer="defer"></script>
-<script src="/assets/js/main.6794086b.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.c11fa2cd.js" defer="defer"></script>
+<script src="/assets/js/main.973a5ab4.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -49,10 +49,10 @@ You can load the waiting jobs with <code>getJobs</code> endpoint with <code>stat
 " class="sc-faJlkc sc-fdduAw JEUrA jdkYst"><p>Page number (1-based indexing)</p>
 </div></div></div></td></tr><tr class=""><td kind="field" title="size" class="sc-kHNKno sc-frmfij hrWbJi bEMUez"><span class="sc-hLyRwt hkIZpX"></span><span class="property-name">size</span></td><td class="sc-groBii kQrmNR"><div><div><span class="sc-byRegH sc-budtlk lfpluU kqsZlC"></span><span class="sc-byRegH sc-fJvEKN lfpluU kIPVZC">integer</span><span class="sc-byRegH sc-fJvEKN lfpluU kIPVZC"> <!-- -->&lt;<!-- -->int32<!-- -->&gt;<!-- --> </span><span> <span class="sc-byRegH sc-fYNhqQ lfpluU bfWWRV"> <!-- -->[ 1 .. 100 ]<!-- --> </span></span></div><div><span class="sc-byRegH lfpluU"> <!-- -->Default:<!-- --> </span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">10</span></div> <div><span class="sc-byRegH lfpluU"> <!-- -->Example:<!-- --> </span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">size=10</span></div><div><div html="&lt;p&gt;Number of items per page (max 100)&lt;/p&gt;
 " class="sc-faJlkc sc-fdduAw JEUrA jdkYst"><p>Number of items per page (max 100)</p>
-</div></div></div></td></tr><tr class=""><td kind="field" title="sortBy" class="sc-kHNKno sc-frmfij hrWbJi bEMUez"><span class="sc-hLyRwt hkIZpX"></span><span class="property-name">sortBy</span></td><td class="sc-groBii kQrmNR"><div><div><span class="sc-byRegH sc-budtlk lfpluU kqsZlC"></span><span class="sc-byRegH sc-fJvEKN lfpluU kIPVZC">string</span></div><div><span class="sc-byRegH lfpluU"> <!-- -->Enum<!-- -->:</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;createdAt&quot;</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;key&quot;</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;type&quot;</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;state&quot;</span> </div> <div><div html="&lt;p&gt;Sort field&lt;/p&gt;
-" class="sc-faJlkc sc-fdduAw JEUrA jdkYst"><p>Sort field</p>
-</div></div></div></td></tr><tr class="last"><td kind="field" title="sortOrder" class="sc-kHNKno sc-frmfij hrWbJi bEMUez"><span class="sc-hLyRwt hkIZpX"></span><span class="property-name">sortOrder</span></td><td class="sc-groBii kQrmNR"><div><div><span class="sc-byRegH sc-budtlk lfpluU kqsZlC"></span><span class="sc-byRegH sc-fJvEKN lfpluU kIPVZC">string</span></div><div><span class="sc-byRegH lfpluU"> <!-- -->Enum<!-- -->:</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;asc&quot;</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;desc&quot;</span> </div> <div><div html="&lt;p&gt;Sort direction&lt;/p&gt;
-" class="sc-faJlkc sc-fdduAw JEUrA jdkYst"><p>Sort direction</p>
+</div></div></div></td></tr><tr class=""><td kind="field" title="sortBy" class="sc-kHNKno sc-frmfij hrWbJi bEMUez"><span class="sc-hLyRwt hkIZpX"></span><span class="property-name">sortBy</span></td><td class="sc-groBii kQrmNR"><div><div><span class="sc-byRegH sc-budtlk lfpluU kqsZlC"></span><span class="sc-byRegH sc-fJvEKN lfpluU kIPVZC">string</span></div><div><span class="sc-byRegH lfpluU"> <!-- -->Enum<!-- -->:</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;createdAt&quot;</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;key&quot;</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;type&quot;</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;state&quot;</span> </div> <div><div html="&lt;p&gt;Sort field. When omitted, the newest key comes first.&lt;/p&gt;
+" class="sc-faJlkc sc-fdduAw JEUrA jdkYst"><p>Sort field. When omitted, the newest key comes first.</p>
+</div></div></div></td></tr><tr class="last"><td kind="field" title="sortOrder" class="sc-kHNKno sc-frmfij hrWbJi bEMUez"><span class="sc-hLyRwt hkIZpX"></span><span class="property-name">sortOrder</span></td><td class="sc-groBii kQrmNR"><div><div><span class="sc-byRegH sc-budtlk lfpluU kqsZlC"></span><span class="sc-byRegH sc-fJvEKN lfpluU kIPVZC">string</span></div><div><span class="sc-byRegH lfpluU"> <!-- -->Enum<!-- -->:</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;asc&quot;</span> <span class="sc-byRegH sc-dEAvcG lfpluU IvJiA">&quot;desc&quot;</span> </div> <div><div html="&lt;p&gt;Sort direction of &lt;code&gt;sortBy&lt;/code&gt;; &lt;code&gt;asc&lt;/code&gt; when omitted. Ignored without &lt;code&gt;sortBy&lt;/code&gt;.&lt;/p&gt;
+" class="sc-faJlkc sc-fdduAw JEUrA jdkYst"><p>Sort direction of <code>sortBy</code>; <code>asc</code> when omitted. Ignored without <code>sortBy</code>.</p>
 </div></div></div></td></tr></tbody></table></div><div><h3 class="sc-gSVmdp bXMkoN">Responses</h3><div><button class="sc-jthNAk kevjzz"><svg class="sc-dibcMh lAqqh" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-eOObWA ecXPYN">200<!-- --> </strong><div html="&lt;p&gt;List of jobs on partitions&lt;/p&gt;
 " class="sc-faJlkc sc-fdduAw sc-eINXvP JEUrA ffmyVV jtyxfw"><p>List of jobs on partitions</p>
 </div></button></div><div><button class="sc-jthNAk hYiSRd"><svg class="sc-dibcMh ldQHAt" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-eOObWA ecXPYN">400<!-- --> </strong><div html="&lt;p&gt;Bad request&lt;/p&gt;
@@ -187,7 +187,9 @@ job:</p>
 <ol>
 <li>Every job starts with the <code>retries</code> of its <code>zenbpm:taskDefinition</code> - a non-negative integer, or a
 FEEL expression starting with <code>=</code> evaluated when the job is created. Without the attribute it
-gets <code>jobs.defaultRetries</code>, which is <code>1</code>: one attempt, so the first failure creates an incident.</li>
+gets <code>jobs.defaultRetries</code>, which is <code>1</code>: one attempt, so the first failure creates an incident.
+A job created before the upgrade to 1.9.0 is the exception: it starts with <code>1</code>, whatever its
+definition says (see <a href="#jobs-created-before-job-level-retries">Jobs created before job-level retries</a>).</li>
 <li>A failure sets the remaining retries to what the request names in <code>retries</code>, or to one less
 than now. <code>retries</code> may be larger than the current value, a worker may top up, but never above
 <code>jobs.maxRetries</code>; a negative value is refused with <code>400</code>. <code>retries</code> and the backoff are
@@ -462,6 +464,114 @@ redelivery of the same attempt (a lapsed lock, a leader change) from a retry, wi
 attempts; it is not unique over the life of a job, since resolving an incident starts a new series
 at <code>1</code>. The delivery token differs for every delivery, so keying an effect on it, or on the job key
 and the attempt, would repeat the effect on every retry.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="jobs-created-before-job-level-retries">Jobs created before job-level retries<a href="#jobs-created-before-job-level-retries" class="hash-link" aria-label="Direct link to Jobs created before job-level retries" title="Direct link to Jobs created before job-level retries">​</a></h3>
+<p>Job-level retries arrived with ZenBPM 1.9.0, together with migration <code>0018_job_retries</code>. The
+migration runs on the database of a partition when a node of 1.9.0 or later becomes its leader and
+starts its engine, and again when a backup taken by an older release is restored; followers never
+run it. It adds the retry columns to every job stored there at that moment, whatever its state, and
+gives each of them the column defaults: <code>retries</code> <code>1</code>, <code>attempts</code> <code>0</code>, no <code>retryAt</code>, no
+<code>retryBackoff</code> and no failure history. The <code>1</code> is deliberate. Before 1.9.0 the first failure of a
+job without an error code created an incident, and a job that waits for a worker across the upgrade
+keeps that behaviour, even when its <code>zenbpm:taskDefinition</code> names other <code>retries</code>. The migration
+does not read the task definitions of the stored jobs, and <code>jobs.defaultRetries</code> does not reach
+them either: they start with <code>1</code>, whatever the engine is configured with.</p>
+<p>&quot;Created before the upgrade&quot; means created by a node older than 1.9.0. During a rolling upgrade the
+leadership of a partition can pass back to an older node after a node of 1.9.0 or later has
+migrated its database, for example when the upgraded leader restarts. While it leads, the older
+node creates jobs without the new columns, so they get the same defaults, and it fails every job at
+its first failure without an error code, whatever the job&#x27;s retries. Such jobs behave like the ones
+stored at the migration. Upgrade every node before relying on the retries of the definitions.</p>
+<p>The retries a series of attempts starts with therefore depend on who created the job and on how
+the series started:</p>
+<table><thead><tr><th>Job</th><th>Retries the series starts with</th><th>Backoff policy</th></tr></thead><tbody><tr><td>Created by 1.9.0 or later</td><td>the definition&#x27;s <code>retries</code>, or <code>jobs.defaultRetries</code> without the attribute</td><td>the definition&#x27;s <code>retryBackoff</code>, or <code>jobs.defaultRetryBackoff</code> without the attribute</td></tr><tr><td>Created before the upgrade, until its own incident is resolved</td><td><code>1</code></td><td><code>jobs.defaultRetryBackoff</code></td></tr><tr><td>Created before the upgrade, once its own incident is resolved</td><td>the definition&#x27;s <code>retries</code>, or <code>jobs.defaultRetries</code> without the attribute, evaluated at the resolution; or an operator&#x27;s (see below)</td><td><code>jobs.defaultRetryBackoff</code>, for as long as the job lives</td></tr></tbody></table>
+<p>Retries taken from a definition or from <code>jobs.defaultRetries</code> are capped by <code>jobs.maxRetries</code>, at
+creation and at resolution alike. Within a series the count changes as for any job: every failure
+without an error code spends one or sets the <code>retries</code> it names, and an operator may set it (see
+below). A migrated job therefore escapes an incident at its first failure without an error code
+only when that failure names <code>retries</code> above <code>0</code> or an operator set new ones meanwhile. Only the
+resolution of the job&#x27;s own incident, the one a failure of the job raised, starts a new series.
+Resolving an incident the job did not raise itself, such as one of a boundary event of its task,
+leaves its retries as they are (see <a href="#failures-and-retries">Failures and retries</a>).</p>
+<p>For example, take a job created before the upgrade by
+<code>&lt;zenbpm:taskDefinition type=&quot;charge-card&quot; retries=&quot;3&quot; retryBackoff=&quot;PT1M&quot; /&gt;</code>, with
+<code>jobs.maxRetries</code> at least <code>3</code>. After the upgrade <code>GET /v1/jobs/{jobKey}</code> shows <code>retries: 1</code>. Its
+next failure without an error code, naming no <code>retries</code>, leaves <code>retries: 0</code> and creates an
+incident. Resolving that incident gives the job <code>retries: 3</code>, as a job created by 1.9.0 has from
+the start. The job still waits <code>jobs.defaultRetryBackoff</code> between those attempts, not <code>PT1M</code>: the
+backoff policy is fixed when a job is created, and this job was created before the engine read it.</p>
+<p>The same holds for a job which was already <code>failed</code> with an open incident at the upgrade. That
+incident names no job (its <code>jobKey</code> is absent), so its resolution takes the job waiting on the
+incident&#x27;s token and starts a new series with the definition&#x27;s retries, as described in
+<a href="#failures-and-retries">Failures and retries</a>. A <code>completed</code> or <code>terminated</code> job created before the
+upgrade shows <code>retries: 1</code> as well; the value says nothing about its definition and has no effect.</p>
+<p>Every resolution of a job&#x27;s own incident evaluates the definition&#x27;s <code>retries</code>, unless an operator&#x27;s
+retries are kept or given with the resolution (see below). If they do not evaluate, the resolution
+is refused with <code>409</code> and changes nothing. That happens with an expression whose variables changed,
+and with a literal which does not parse in a definition deployed before the engine read <code>retries</code>,
+which was never checked. Resolving the incident with the job&#x27;s retries given gets past it, but only
+for this incident: the next own incident of the job evaluates the definition&#x27;s <code>retries</code> again. The
+job of a definition with such a literal therefore needs an operator&#x27;s retries at every resolution
+of its own incidents.</p>
+<p><strong>Giving an existing job other retries.</strong> An operator who wants a job created before the upgrade to
+retry sets its retries with <a href="#setting-the-retries-of-a-job"><code>POST /v1/jobs/{jobKey}/retries</code></a>,
+without waiting for its incident. The endpoint takes an <code>active</code> or <code>failed</code> job, a count from <code>1</code>
+to <code>jobs.maxRetries</code> and, optionally, a <code>retryAt</code>:</p>
+<ul>
+<li>An <code>active</code> job goes on with the new retries at once, within its current series. The failure
+which leaves no retries creates an incident; that incident ends the series and the operator&#x27;s
+retries with it, so resolving it gives the job the definition&#x27;s retries.</li>
+<li>A <code>failed</code> job keeps its incident open. The resolution keeps the retries set here instead of
+evaluating the definition&#x27;s, and the <code>retryAt</code> while it still lies ahead. To do both in one
+request, give <code>retries</code>, and optionally <code>retryAt</code>, in the body of
+<a href="#setting-the-retries-while-resolving-the-incident"><code>POST /v1/incidents/{incidentKey}/resolve</code></a>.
+Retries given there win over the definition&#x27;s, which are not evaluated, and over retries set for
+the job since it failed.</li>
+</ul>
+<p>Neither changes the backoff policy of the job. A failure may name its own backoff -
+<code>retryBackoff</code> on the REST endpoint, <code>retry_backoff_ms</code> on the stream - which applies to that
+failure only.</p>
+<p>Retries are set job by job; no endpoint sets them for many jobs at once. To find the jobs created
+before the upgrade:</p>
+<ol>
+<li><strong>List the candidates by key.</strong> List <code>GET /v1/jobs?state=active&amp;sortBy=key&amp;sortOrder=asc</code>, and
+the same with <code>state=failed</code>, which a node older than 1.9.0 refuses with <code>400</code>. The listing is
+sorted and paged per partition (see <a href="#rest-api">REST API</a>), and within a partition job keys grow
+with the time of creation, so the oldest jobs of each partition come first.</li>
+<li><strong>Read each job&#x27;s <code>createdAt</code>.</strong> The order of the keys is close to the order of <code>createdAt</code>, but
+not exact, so check the <code>createdAt</code> of each job instead of stopping at a key.</li>
+<li><strong>Find the boundary of the job&#x27;s partition.</strong> It is a time per partition: the last time a node
+older than 1.9.0 led the partition.<!-- -->
+<ul>
+<li>Without a leadership change back to an older node, that is when the partition&#x27;s leader logged
+<code>Migration applied: 0018_job_retries.up.sql</code>, which is also the <code>ran_at</code> of
+<code>0018_job_retries.up.sql</code> in the partition&#x27;s <code>migration</code> table.</li>
+<li>If the leadership went back to an older node meanwhile, it is when that node last stopped
+leading.</li>
+<li>For a restored backup taken by an older release, it is the time of the backup.</li>
+</ul>
+</li>
+<li><strong>Compare.</strong> A job whose <code>createdAt</code> lies before the boundary of its partition is a candidate.
+Unless the leadership went back to an older node, every candidate was created before the
+upgrade. If it did, a node of 1.9.0 or later led the partition for a time before the boundary,
+and the jobs it created then are candidates too, although they have the retries and the backoff
+of their definitions. A job does not record which release created it, so the time decides here
+as well: such a candidate was created before the upgrade only if its <code>createdAt</code> lies before the
+migration, or within a time an older node led the partition after it.</li>
+<li><strong>Repeat.</strong> List both states again until a full pass finds no further job created before the
+upgrade. The pages are counted from the first row of the state at each request, so when a job
+leaves the state between two requests, for example because it completes, every later job moves
+up by one, and the job which moves onto a page already read is skipped. A job which changes
+between <code>active</code> and <code>failed</code> during a pass can be missed as well.</li>
+</ol>
+<p>List by key, not by <code>createdAt</code>: the sort by key works on every release, also while the cluster
+runs several versions. Releases up to and including 1.10.0 ignore <code>sortBy=createdAt</code> on this
+endpoint and list the newest key first, and a partition&#x27;s listing is usually served by one of its
+followers, which may still run such a release.</p>
+<p>This is the compatibility policy of the upgrade, not a missing backfill. Giving the stored jobs the
+retries of their definitions would make jobs which were waiting for a worker at the upgrade retry
+failures which stopped them at an incident before, without anybody choosing that. Such a backfill
+would change the behaviour of running instances, and takes a separate design decision and a
+migration of its own. Until then, the operator decides job by job, as described above.</p>
 <blockquote>
 <p>⚠️ <strong>Upgrade notes:</strong></p>
 <ul>
@@ -473,8 +583,10 @@ given, is now a failure without an error code: it spends a retry instead of bein
 catch-all error boundary event or error event sub-process. Send an error code to throw a BPMN
 error.</li>
 <li>Jobs created before the upgrade keep one retry, the default of the new column, even when their
-definition carries <code>retries</code>; jobs created afterwards get the definition&#x27;s. Set the retries of a
-running job with the endpoint above.</li>
+definition carries <code>retries</code>; jobs created afterwards get the definition&#x27;s. Resolving the
+job&#x27;s own incident gives it the definition&#x27;s retries, but not the definition&#x27;s backoff. Set
+the retries of a running job with the endpoint above. See
+<a href="#jobs-created-before-job-level-retries">Jobs created before job-level retries</a>.</li>
 <li>Failing or completing a job which no longer waits for a worker answers <code>409</code> instead of <code>500</code>,
 and the stream answers the completion with a code. A worker using the Go client is not affected:
 it only logs the answer. A stream completion the leader refused used to be reported to the
@@ -496,6 +608,6 @@ Job manager handles two sides of the communication in the cluster. Connection or
 <ul>
 <li><strong>client</strong> side: handles worker connections that are interested in performing work on different ob types.</li>
 <li><strong>server</strong> side: pulls out jobs that need to be processed and distributes them using round robin among workers connected to client side.</li>
-</ul></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/next/reference/cluster"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Cluster</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/next/reference/storage"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Storage</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#internal-jobs" class="table-of-contents__link toc-highlight">Internal jobs</a></li><li><a href="#external-jobs" class="table-of-contents__link toc-highlight">External jobs</a></li><li><a href="#listener-jobs" class="table-of-contents__link toc-highlight">Listener jobs</a></li><li><a href="#working-with-external-jobs" class="table-of-contents__link toc-highlight">Working with external jobs</a><ul><li><a href="#rest-api" class="table-of-contents__link toc-highlight">REST API</a></li><li><a href="#grpc-api" class="table-of-contents__link toc-highlight">GRPC API</a></li><li><a href="#task-headers" class="table-of-contents__link toc-highlight">Task headers</a></li><li><a href="#job-locks" class="table-of-contents__link toc-highlight">Job locks</a></li></ul></li><li><a href="#failures-and-retries" class="table-of-contents__link toc-highlight">Failures and retries</a><ul><li><a href="#delivery-tokens" class="table-of-contents__link toc-highlight">Delivery tokens</a></li><li><a href="#backoff" class="table-of-contents__link toc-highlight">Backoff</a></li><li><a href="#what-a-job-shows" class="table-of-contents__link toc-highlight">What a job shows</a></li><li><a href="#setting-the-retries-of-a-job" class="table-of-contents__link toc-highlight">Setting the retries of a job</a></li><li><a href="#setting-the-retries-while-resolving-the-incident" class="table-of-contents__link toc-highlight">Setting the retries while resolving the incident</a></li><li><a href="#what-stays-the-workers-business" class="table-of-contents__link toc-highlight">What stays the worker&#39;s business</a></li></ul></li><li><a href="#job-manager" class="table-of-contents__link toc-highlight">Job manager</a></li></ul></div></div></div></div></main></div></div></div></div>
+</ul></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/next/reference/cluster"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Cluster</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/next/reference/storage"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Storage</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#internal-jobs" class="table-of-contents__link toc-highlight">Internal jobs</a></li><li><a href="#external-jobs" class="table-of-contents__link toc-highlight">External jobs</a></li><li><a href="#listener-jobs" class="table-of-contents__link toc-highlight">Listener jobs</a></li><li><a href="#working-with-external-jobs" class="table-of-contents__link toc-highlight">Working with external jobs</a><ul><li><a href="#rest-api" class="table-of-contents__link toc-highlight">REST API</a></li><li><a href="#grpc-api" class="table-of-contents__link toc-highlight">GRPC API</a></li><li><a href="#task-headers" class="table-of-contents__link toc-highlight">Task headers</a></li><li><a href="#job-locks" class="table-of-contents__link toc-highlight">Job locks</a></li></ul></li><li><a href="#failures-and-retries" class="table-of-contents__link toc-highlight">Failures and retries</a><ul><li><a href="#delivery-tokens" class="table-of-contents__link toc-highlight">Delivery tokens</a></li><li><a href="#backoff" class="table-of-contents__link toc-highlight">Backoff</a></li><li><a href="#what-a-job-shows" class="table-of-contents__link toc-highlight">What a job shows</a></li><li><a href="#setting-the-retries-of-a-job" class="table-of-contents__link toc-highlight">Setting the retries of a job</a></li><li><a href="#setting-the-retries-while-resolving-the-incident" class="table-of-contents__link toc-highlight">Setting the retries while resolving the incident</a></li><li><a href="#what-stays-the-workers-business" class="table-of-contents__link toc-highlight">What stays the worker&#39;s business</a></li><li><a href="#jobs-created-before-job-level-retries" class="table-of-contents__link toc-highlight">Jobs created before job-level retries</a></li></ul></li><li><a href="#job-manager" class="table-of-contents__link toc-highlight">Job manager</a></li></ul></div></div></div></div></main></div></div></div></div>
 </body>
 </html>
